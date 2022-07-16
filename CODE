@@ -1,0 +1,32 @@
+#include <Servo.h>         
+  #define SERVO 5           
+  #define led 3           
+   Servo servo;           
+    int pir = 4;          
+  int estsen = 0;        
+  int pos = 0;          
+void setup(){
+  Serial.begin(9600);
+    pinMode(pir, INPUT);      
+    pinMode(led, OUTPUT);     
+     servo.attach(SERVO);     
+     servo.write(0);        
+}
+void loop(){
+  estsen = digitalRead(pir); 
+  
+   if (estsen == HIGH && pos <= 0)
+   { 
+       digitalWrite(led, HIGH);   
+    pos = 90;         
+         servo.write(pos);      
+        delay(5000);
+} 
+   if(estsen == LOW && pos >= 90){  
+      digitalWrite(led, LOW);   
+       pos--;           
+       pos = 0;           
+        servo.write(pos);     
+       delay(5);
+  }
+}
